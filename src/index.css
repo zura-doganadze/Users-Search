@@ -7,7 +7,7 @@
 body {
   text-align: center;
   font-family: "Space Mono", monospace;
-  background: #f6f8ff;
+  background-color: black;
 }
 #root {
   width: 100%;

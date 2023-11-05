@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Stars from "../../Images/Main/stars.png";
 import PngEgg from "../../Images/Main/pngegg.png";
 import styled from "styled-components";
 
-function Main() {
+function Main(props) {
   return (
     <MainWrapper>
       <MainContainer>
@@ -12,7 +12,7 @@ function Main() {
         </div>
         <TiTle>get started today</TiTle>
         <div>
-          <Button>get started</Button>
+          <Button onClick={props.hendlStarted}>get started</Button>
         </div>
       </MainContainer>
     </MainWrapper>
@@ -25,12 +25,10 @@ const MainWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
   justify-content: center;
-  background-color: black;
   background-image: url(${Stars});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-attachment: fixed;
 `;
 const MainContainer = styled.div`
   width: 100%;
@@ -41,7 +39,6 @@ const MainContainer = styled.div`
 `;
 const TiTle = styled.h1`
   color: #4980c0;
-  text-align: center;
   /* font-family: Rowdies; */
   font-size: 96px;
   text-transform: capitalize;
@@ -49,7 +46,6 @@ const TiTle = styled.h1`
 `;
 const Button = styled.button`
   color: #fff;
-  text-align: center;
   /* font-family: Montserrat; */
   font-size: 24px;
   text-transform: capitalize;
