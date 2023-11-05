@@ -1,0 +1,12 @@
+import React from "react";
+import styled from "styled-components";
+
+function Header() {
+  return (
+    <div>
+      <div>header</div>
+    </div>
+  );
+}
+
+export default Header;

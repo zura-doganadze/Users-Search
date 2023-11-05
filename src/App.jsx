@@ -1,10 +1,9 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import styled from "styled-components";
 import Main from "./assets/Pages/Main";
 import Registration from "./assets/Pages/Registration";
 import Form from "./assets/Pages/Form";
+import Header from "./assets/Components/Header"
 
 function App() {
   const [started, setStarted] = useState(false);
@@ -15,14 +14,14 @@ function App() {
   return (
     <>
       <Wrapper>
+        < Form />
         {/* {started === true ? (
           <Registration />
         ) : (
           <Main hendlStarted={hendlStarted} />
         )} */}
         {/* <Main hendlStarted={hendlStarted} /> */}
-        <Form />
-      </Wrapper>
+       </Wrapper>
     </>
   );
 }
