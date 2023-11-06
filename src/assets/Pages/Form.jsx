@@ -20,6 +20,7 @@ function Form() {
   const [users, setUsers] = useState(userData);
   return (
     <Wrapper>
+      < Header />
       <Container>
         <div>
           {/* <Filters>
@@ -45,6 +46,7 @@ function Form() {
                   return <span key={index}>{text}</span>;
                 })}
               </UserDetails>
+              
               <div>
                 {users.map((user) => {
                   return (
@@ -78,6 +80,7 @@ const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   justify-content: center;
+  flex-direction: column
 `;
 const Container = styled.div`
   max-width: 100%;
