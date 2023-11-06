@@ -73,6 +73,7 @@ const Line = styled.div`
 `;
 const NameWrapper = styled.div`
   display: flex;
+  align-items: center;
   max-width: 500px;
   font-size: 18px;
   width: max-content;

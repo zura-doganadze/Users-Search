@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import Header from "../Components/Header";
-import Filter from "../../Images/Form/filter-svg.svg";
+import FilterImg from "../../Images/Form/filter-svg.svg";
 import search from "../../Images/Form/search.svg";
 import userData from "../../userData.json";
 function Form() {
@@ -18,58 +18,90 @@ function Form() {
     "დაბადების თარიღი",
   ];
   const [users, setUsers] = useState(userData);
+  const [filter, setFilter] = useState(false);
+
+  function HendlFilter() {
+    setFilter(!filter);
+  }
   return (
     <Wrapper>
-      < Header />
-      <Container>
+      <Header />
+      <FormCWrapper>
         <div>
-          {/* <Filters>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-            sequi quo repellendus vel reiciendis placeat. Sit ab voluptatem, hic
-            necessitatibus exercitationem assumenda asperiores eaque voluptate
-            debitis totam adipisci tempore quidem!
-          </Filters> */}
-          <div>
-            <FilterWrapper>
-              <FilterComponent>
-                <img src={Filter} alt="" />
-                <FilterTitle>filter</FilterTitle>
-              </FilterComponent>
-              <SearchComponent>
-                <SearchImg src={search} alt="" />
-                <SearchInput type="text" />
-              </SearchComponent>
-            </FilterWrapper>
-            <UsersSection>
-              <UserDetails>
-                {Titlesdata.map((text, index) => {
-                  return <span key={index}>{text}</span>;
-                })}
-              </UserDetails>
-              
-              <div>
-                {users.map((user) => {
-                  return (
-                    <UserDetailsWrapper key={user.id}>
-                      <span>{user.full_name}</span>
-                      <span>
-                        {user.active === true ? "active" : "inactive"}
-                      </span>
-                      <span>{user.gender}</span>
-                      <span>{user.score}</span>
-                      <span>{user.personal_number}</span>
-                      <span>{user.mail}</span>
-                      <span>{user.mobile_number}</span>
-                      <span>{user.address}</span>
-                      <span>{user.birth}</span>
-                    </UserDetailsWrapper>
-                  );
-                })}
-              </div>
-            </UsersSection>
-          </div>
+          <Container>
+            {filter === true ? (
+              <FiltersCard>
+                <FilterDetailsC>
+                  <ActiveCWrapper>
+                    <FilterTitles>სტუდენტის სტატუსი</FilterTitles>
+                    <FilterTopics>
+                      <input type="checkbox" />
+                      <span>active</span>
+                    </FilterTopics>
+                    <FilterTopics>
+                      <input type="checkbox" />
+                      <span>inactive</span>
+                    </FilterTopics>
+                  </ActiveCWrapper>
+                  <ActiveCWrapper>
+                    <FilterTitles>სქესი</FilterTitles>
+                    <FilterTopics>
+                      <input type="checkbox" />
+                      <span>male</span>
+                    </FilterTopics>
+                    <FilterTopics>
+                      <input type="checkbox" />
+                      <span>female</span>
+                    </FilterTopics>
+                  </ActiveCWrapper>
+                </FilterDetailsC>
+              </FiltersCard>
+            ) : (
+              ""
+            )}
+
+            <div>
+              <FilterWrapper>
+                <FilterComponent onClick={HendlFilter}>
+                  <img src={FilterImg} alt="Filter Img" />
+                  <FilterTitle>filter</FilterTitle>
+                </FilterComponent>
+                <SearchComponent>
+                  <SearchImg src={search} alt="search img" />
+                  <SearchInput type="text" />
+                </SearchComponent>
+              </FilterWrapper>
+              <UsersSection>
+                <UserDetails>
+                  {Titlesdata.map((text, index) => {
+                    return <span key={index}>{text}</span>;
+                  })}
+                </UserDetails>
+
+                <div>
+                  {users.map((user) => {
+                    return (
+                      <UserDetailsWrapper key={user.id}>
+                        <span>{user.full_name}</span>
+                        <span>
+                          {user.active === true ? "active" : "inactive"}
+                        </span>
+                        <span>{user.gender}</span>
+                        <span>{user.score}</span>
+                        <span>{user.personal_number}</span>
+                        <span>{user.mail}</span>
+                        <span>{user.mobile_number}</span>
+                        <span>{user.address}</span>
+                        <span>{user.birth}</span>
+                      </UserDetailsWrapper>
+                    );
+                  })}
+                </div>
+              </UsersSection>
+            </div>
+          </Container>
         </div>
-      </Container>
+      </FormCWrapper>
     </Wrapper>
   );
 }
@@ -80,12 +112,17 @@ const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  flex-direction: column
+  flex-direction: column;
+`;
+const FormCWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 const Container = styled.div`
-  max-width: 100%;
-  width: 90%;
+  max-width: 1200px;
+  width: 100%;
   margin-top: 25px;
+  position: relative;
 `;
 const FilterWrapper = styled.div`
   width: 100%;
@@ -97,15 +134,27 @@ const FilterWrapper = styled.div`
 const UsersSection = styled.div`
   border-radius: 10px;
   background: #fff;
-  max-width: 1200px;
   width: 100%;
 `;
-const Filters = styled.div`
+const FiltersCard = styled.div`
   max-width: 300px;
   width: 100%;
-  background-color: #fff;
+  height: 295px;
+  border-radius: 10px;
+  border: 1px solid #fafafa;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(221, 221, 221, 0.25);
+  position: absolute;
+  top: 70px;
+  right: 102%;
 `;
 
+const FilterDetailsC = styled.div`
+  margin: 43px 46px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
 const FilterComponent = styled.div`
   border-radius: 10px;
   background: #fff;
@@ -113,6 +162,24 @@ const FilterComponent = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
+`;
+const ActiveCWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 19px;
+  color: #000;
+  text-align: center;
+  font-size: 14px;
+  text-transform: uppercase;
+`;
+const FilterTitles = styled.div`
+  color: #565656;
+  font-size: 14px;
+  margin-bottom: 15px;
+`;
+const FilterTopics = styled.span`
+  margin: 0 0 7px 15px;
 `;
 const FilterTitle = styled.span`
   color: #000;
