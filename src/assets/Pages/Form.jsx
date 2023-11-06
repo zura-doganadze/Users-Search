@@ -1,9 +1,23 @@
 import React from "react";
 import styled from "styled-components";
+import { useState } from "react";
 import Header from "../Components/Header";
 import Filter from "../../Images/Form/filter-svg.svg";
 import search from "../../Images/Form/search.svg";
+import userData from "../../userData.json";
 function Form() {
+  const Titlesdata = [
+    "სტუდენტის სახელი და გვარი",
+    "სტატუსი",
+    "სქესი",
+    "ქულები",
+    "პირადი ნომერი",
+    " მაილი",
+    " მობილურის ნომერი",
+    "მისამართი",
+    "დაბადების თარიღი",
+  ];
+  const [users, setUsers] = useState(userData);
   return (
     <Wrapper>
       <Container>
@@ -27,16 +41,29 @@ function Form() {
             </FilterWrapper>
             <UsersSection>
               <UserDetails>
-                <span>სტუდენტის სახელი და გვარი</span>
-                <span>სტატუსი</span>
-                <span>სქესი</span>
-                <span>ქულები</span>
-                <span>პირადი ნომერი</span>
-                <span>მაილი</span>
-                <span>მობილურის ნომერი</span>
-                <span>მისამართი</span>
-                <span>დაბადების თარიღი</span>
+                {Titlesdata.map((text, index) => {
+                  return <span key={index}>{text}</span>;
+                })}
               </UserDetails>
+              <div>
+                {users.map((user) => {
+                  return (
+                    <UserDetailsWrapper key={user.id}>
+                      <span>{user.full_name}</span>
+                      <span>
+                        {user.active === true ? "active" : "inactive"}
+                      </span>
+                      <span>{user.gender}</span>
+                      <span>{user.score}</span>
+                      <span>{user.personal_number}</span>
+                      <span>{user.mail}</span>
+                      <span>{user.mobile_number}</span>
+                      <span>{user.address}</span>
+                      <span>{user.birth}</span>
+                    </UserDetailsWrapper>
+                  );
+                })}
+              </div>
             </UsersSection>
           </div>
         </div>
@@ -109,7 +136,15 @@ const SearchInput = styled.input`
 `;
 // UserDetails
 const UserDetails = styled.div`
-    display: flex;
-    column-gap: 50px;
+  display: flex;
+  column-gap: 50px;
+  border-bottom: 2px solid black;
+  padding: 28px 67px;
+`;
 
-`
+const UserDetailsWrapper = styled.div`
+  display: flex;
+  /* justify-content: space-between; */
+  column-gap: 30px;
+  padding: 28px 81px;
+`;
