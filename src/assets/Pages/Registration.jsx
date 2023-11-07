@@ -12,6 +12,7 @@ function Registration() {
         </ImgContainer>
         <NameSpan>fill in your name</NameSpan>
         <div>
+           
           <Input type="text" placeholder="your name" />
         </div>
         <Button>sign in</Button>

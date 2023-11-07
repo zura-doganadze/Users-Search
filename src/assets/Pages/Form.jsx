@@ -12,24 +12,27 @@ function Form() {
     "სქესი",
     "ქულები",
     "პირადი ნომერი",
-    " მაილი",
-    " მობილურის ნომერი",
+    "მობილურის ნომერი",
     "მისამართი",
     "დაბადების თარიღი",
+    "მაილი",
   ];
   const [users, setUsers] = useState(userData);
   const [filter, setFilter] = useState(false);
+  const [page, setPage] = useState(1);
 
   function HendlFilter() {
     setFilter(!filter);
   }
+
+  const pages = [1, 2, 3, 4];
   return (
     <Wrapper>
       <Header />
       <FormCWrapper>
         <div>
           <Container>
-            {filter === true ? (
+            {filter ? (
               <FiltersCard>
                 <FilterDetailsC>
                   <ActiveCWrapper>
@@ -77,29 +80,36 @@ function Form() {
                     return <span key={index}>{text}</span>;
                   })}
                 </UserDetails>
-
+                <Line></Line>
                 <div>
-                  {users.map((user) => {
-                    return (
-                      <UserDetailsWrapper key={user.id}>
-                        <span>{user.full_name}</span>
-                        <span>
-                          {user.active === true ? "active" : "inactive"}
-                        </span>
-                        <span>{user.gender}</span>
-                        <span>{user.score}</span>
-                        <span>{user.personal_number}</span>
-                        <span>{user.mail}</span>
-                        <span>{user.mobile_number}</span>
-                        <span>{user.address}</span>
-                        <span>{user.birth}</span>
-                      </UserDetailsWrapper>
-                    );
-                  })}
+                  {users
+                    .slice((page - 1) * 10, (page - 1) * 10 + 10)
+                    .map((user) => {
+                      return (
+                        <UserDetailsWrapper key={user.id}>
+                          <span>{user.full_name}</span>
+                          <span>
+                            {user.active === true ? "active" : "inactive"}
+                          </span>
+                          <span>{user.gender}</span>
+                          <span>{user.score}</span>
+                          <span>{user.personal_number}</span>
+                          <span>{user.mobile_number}</span>
+                          <span>{user.address}</span>
+                          <span>{user.birth}</span>
+                          <UserMail>{user.mail}</UserMail>
+                        </UserDetailsWrapper>
+                      );
+                    })}
                 </div>
               </UsersSection>
             </div>
           </Container>
+          <PaginationWrapper>
+            {pages.map((item) => (
+              <button onClick={() => setPage(item)}>{item}</button>
+            ))}
+          </PaginationWrapper>
         </div>
       </FormCWrapper>
     </Wrapper>
@@ -113,6 +123,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  margin-bottom: 100px;
 `;
 const FormCWrapper = styled.div`
   display: flex;
@@ -135,7 +146,11 @@ const UsersSection = styled.div`
   border-radius: 10px;
   background: #fff;
   width: 100%;
+  overflow-x: scroll;
 `;
+// const UsersWrapper = styled.div`
+//   overflow-x: scroll;
+// `;
 const FiltersCard = styled.div`
   max-width: 300px;
   width: 100%;
@@ -207,14 +222,42 @@ const SearchInput = styled.input`
 // UserDetails
 const UserDetails = styled.div`
   display: flex;
-  column-gap: 50px;
-  border-bottom: 2px solid black;
-  padding: 28px 67px;
+  column-gap: 20px;
+  padding: 20px 67px;
+  span {
+    min-width: 170px;
+    display: flex;
+  }
 `;
-
+const Line = styled.div`
+  height: 1px;
+  background: black;
+  width: 100%;
+  position: absolute;
+`;
 const UserDetailsWrapper = styled.div`
   display: flex;
-  /* justify-content: space-between; */
-  column-gap: 30px;
-  padding: 28px 81px;
+  padding: 22px 81px;
+  column-gap: 20px;
+
+  span {
+    min-width: 170px;
+    display: flex;
+    line-height: 22px;
+  }
+`;
+const UserMail = styled.p`
+  min-width: 220px;
+  display: flex;
+`;
+const PaginationWrapper = styled.div`
+  margin-top: 69px;
+  font-size: 18px;
+  button {
+    border: none;
+    background: none;
+    color: #fff;
+    margin-right: 7px;
+    cursor: pointer;
+  }
 `;
