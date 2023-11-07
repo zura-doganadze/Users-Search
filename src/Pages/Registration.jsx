@@ -1,21 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 import AddImg from "../Images/Registration/add_a_photo_icon.svg";
+import { Link, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+
 function Registration() {
+  const navigate = useNavigate();
+
   return (
     <RegistrationWrapper>
       <RegistrationContainer>
-        <TiTle>get started</TiTle>
+        <h1>get started</h1>
         <AddSpan>add a photo</AddSpan>
         <ImgContainer>
           <img src={AddImg} alt="" />
         </ImgContainer>
         <NameSpan>fill in your name</NameSpan>
         <div>
-           
           <Input type="text" placeholder="your name" />
         </div>
-        <Button>sign in</Button>
+        <Button
+          onClick={() => navigate("/Form", { state: { key: "value" } })}
+        >
+          sign in
+        </Button>
       </RegistrationContainer>
     </RegistrationWrapper>
   );
@@ -36,13 +45,14 @@ const RegistrationContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  h1 {
+    color: #000;
+    font-size: 64px;
+    text-transform: capitalize;
+    margin-top: 62px;
+  }
 `;
-const TiTle = styled.h2`
-  color: #000;
-  font-size: 64px;
-  text-transform: capitalize;
-  margin-top: 62px;
-`;
+
 const AddSpan = styled.span`
   color: #000;
   font-size: 36px;

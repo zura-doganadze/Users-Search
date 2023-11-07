@@ -1,5 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 import Header from "../Components/Header";
@@ -12,6 +14,15 @@ import search from "../Images/Form/search.svg";
 import UserIBackground from "../Images/Header/imgBackground.png";
 
 function Form() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (location.state == null) {
+      navigate("/Registration");
+    }
+  }, []);
+
+  console.log(location.state);
   const Titlesdata = [
     "სტუდენტის სახელი და გვარი",
     "სტატუსი",
@@ -42,7 +53,7 @@ function Form() {
               <Filterssection>
                 <FilterDetailsC>
                   <ActiveCWrapper>
-                    <FilterTitles>სტუდენტის სტატუსი</FilterTitles>
+                    <h3>სტუდენტის სტატუსი</h3>
                     <FilterTopics>
                       <input type="checkbox" />
                       <span>active</span>
@@ -53,7 +64,7 @@ function Form() {
                     </FilterTopics>
                   </ActiveCWrapper>
                   <ActiveCWrapper>
-                    <FilterTitles>სქესი</FilterTitles>
+                    <h3>სქესი</h3>
                     <FilterTopics>
                       <input type="checkbox" />
                       <span>male</span>
@@ -190,12 +201,13 @@ const ActiveCWrapper = styled.div`
   text-align: center;
   font-size: 14px;
   text-transform: uppercase;
+  h3 {
+    color: #565656;
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
 `;
-const FilterTitles = styled.div`
-  color: #565656;
-  font-size: 14px;
-  margin-bottom: 15px;
-`;
+
 const FilterTopics = styled.span`
   margin: 0 0 7px 15px;
 `;

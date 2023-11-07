@@ -8,28 +8,16 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Api from "./Pages/Api";
 
 function App() {
-  const [started, setStarted] = useState(false);
-
-  function hendlStarted() {
-    setStarted(!started);
-    console.log("first");
-  }
- 
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Form />} />
-        <Route exact path="/Api" element={<Api />} />
+        <Route path="/" element={<Main />} />
+        <Route path="/Registration" element={<Registration />} />
+        <Route path="/Form" element={<Form />} />
+        <Route path="/Api" element={<Api />} />
 
       </Routes>
     </>
-
-    //  {/* {started === true ? (
-    //   <Registration />
-    // ) : (
-    //   <Main hendlStarted={hendlStarted} />
-    // )} */}
-    // {/* <Main hendlStarted={hendlStarted} /> */}
   );
 }
 

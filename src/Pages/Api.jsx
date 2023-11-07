@@ -2,9 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import Header from "../Components/Header";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Api = () => {
   const [state, setState] = useState("");
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (location.state == null) {
+      navigate("/Registration");
+    }
+  }, []);
+  console.log(location.state);
 
   async function fetchAdvice() {
     try {

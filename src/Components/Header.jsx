@@ -74,7 +74,6 @@ const Container = styled.div`
   width: 90%;
 `;
 const ContentWrapper = styled.div`
-  /* padding: 35px 0; */
   display: flex;
   align-items: center;
 `;
@@ -94,6 +93,7 @@ const List = styled.li`
   color: #ffffff;
   font-size: 40px;
   font-weight: 700;
+  
 `;
 const Line = styled.div`
   width: 2px;
@@ -129,13 +129,12 @@ const Popup = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  background: rgba(0, 0, 0, 0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1;
 `;
-
 const PopUpWrapper = styled.div`
   display: flex;
   flex-direction: column;

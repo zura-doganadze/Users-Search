@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import Stars from "../Images/Main/stars.png";
 import PngEgg from "../Images/Main/pngegg.png";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
-function Main(props) {
+function Main() {
+  const navigate = useNavigate();
+
   return (
     <MainWrapper>
       <MainContainer>
@@ -12,7 +15,7 @@ function Main(props) {
         </div>
         <TiTle>get started today</TiTle>
         <div>
-          <Button onClick={props.hendlStarted}>get started</Button>
+          <Button onClick={() => navigate("/Registration")}>get started</Button>
         </div>
       </MainContainer>
     </MainWrapper>
