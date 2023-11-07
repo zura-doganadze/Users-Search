@@ -31,7 +31,7 @@ const Api = () => {
     <Wrapper>
       <Header />
       <CardWrapper>
-         {state !== "" &&
+        {state !== "" &&
           state.map((item, index) => (
             <CardContainer key={index}>
               <div>
@@ -42,7 +42,7 @@ const Api = () => {
               </div>
             </CardContainer>
           ))}
-        </CardWrapper>
+      </CardWrapper>
     </Wrapper>
   );
 };

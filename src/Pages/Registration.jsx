@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import AddImg from "../../Images/Registration/add_a_photo_icon.svg";
+import AddImg from "../Images/Registration/add_a_photo_icon.svg";
 function Registration() {
   return (
     <RegistrationWrapper>

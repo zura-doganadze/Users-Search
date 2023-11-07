@@ -1,11 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
-import Main from "./assets/Pages/Main";
-import Registration from "./assets/Pages/Registration";
-import Form from "./assets/Pages/Form";
-import Header from "./assets/Components/Header";
+import Main from "./Pages/Main";
+import Registration from "./Pages/Registration";
+import Form from "./Pages/Form";
+import Header from "./Components/Header";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Api from "./assets/Pages/Api";
+import Api from "./Pages/Api";
 
 function App() {
   const [started, setStarted] = useState(false);
@@ -14,14 +14,14 @@ function App() {
     setStarted(!started);
     console.log("first");
   }
+ 
   return (
     <>
-      <Router>
-        <Routes>
-          <Route exact path="/"  element={<Form />} />
-          <Route exact path="/Api"  element={<Api />} />
-        </Routes>
-      </Router>
+      <Routes>
+        <Route exact path="/" element={<Form />} />
+        <Route exact path="/Api" element={<Api />} />
+
+      </Routes>
     </>
 
     //  {/* {started === true ? (

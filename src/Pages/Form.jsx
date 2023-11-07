@@ -1,10 +1,16 @@
 import React from "react";
-import styled from "styled-components";
 import { useState } from "react";
+
+import styled from "styled-components";
 import Header from "../Components/Header";
-import FilterImg from "../../Images/Form/filter-svg.svg";
-import search from "../../Images/Form/search.svg";
-import userData from "../../userData.json";
+//data
+import userData from "../userData.json";
+
+//img
+import FilterImg from "../Images/Form/filter-svg.svg";
+import search from "../Images/Form/search.svg";
+import UserIBackground from "../Images/Header/imgBackground.png";
+
 function Form() {
   const Titlesdata = [
     "სტუდენტის სახელი და გვარი",
@@ -33,7 +39,7 @@ function Form() {
         <div>
           <Container>
             {filter ? (
-              <FiltersCard>
+              <Filterssection>
                 <FilterDetailsC>
                   <ActiveCWrapper>
                     <FilterTitles>სტუდენტის სტატუსი</FilterTitles>
@@ -58,7 +64,7 @@ function Form() {
                     </FilterTopics>
                   </ActiveCWrapper>
                 </FilterDetailsC>
-              </FiltersCard>
+              </Filterssection>
             ) : (
               ""
             )}
@@ -148,10 +154,7 @@ const UsersSection = styled.div`
   width: 100%;
   overflow-x: scroll;
 `;
-// const UsersWrapper = styled.div`
-//   overflow-x: scroll;
-// `;
-const FiltersCard = styled.div`
+const Filterssection = styled.div`
   max-width: 300px;
   width: 100%;
   height: 295px;
@@ -244,6 +247,9 @@ const UserDetailsWrapper = styled.div`
     min-width: 170px;
     display: flex;
     line-height: 22px;
+  }
+  &:nth-child(odd) {
+    background: #f6f6f6;
   }
 `;
 const UserMail = styled.p`
