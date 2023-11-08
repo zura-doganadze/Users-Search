@@ -4,9 +4,12 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Link, NavLink } from "react-router-dom";
 import UserIBackground from "../Images/Header/imgBackground.png";
-function Header() {
-  const Pages = ["form", "Api"];
+import { useNavigate } from "react-router-dom";
+function Header(props) {
+  const Pages = ["Form", "Api"];
   const [popUp, setPopUp] = useState(false);
+
+  const navigate = useNavigate();
 
   const openPopup = () => {
     setPopUp(true);
@@ -26,9 +29,13 @@ function Header() {
               {Pages.map((item, index) => {
                 return (
                   <List key={index}>
-                    <NavLink to={item === "form" ? "/" : `/${item}`}>
+                    <Adress
+                      onClick={() =>
+                        navigate(`/${item}`, { state: { key: "value" } })
+                      }
+                    >
                       {item}
-                    </NavLink>
+                    </Adress>
                   </List>
                 );
               })}
@@ -36,10 +43,10 @@ function Header() {
           </Nav>
           <Line></Line>
           <NameWrapper>
-            <Name>Uour name</Name>
+            <Name>{props.names}</Name>
             <Img
               onClick={openPopup}
-              src={UserIBackground}
+              src={props.file}
               alt="user img backgorund"
             />
           </NameWrapper>
@@ -48,8 +55,8 @@ function Header() {
           <Popup>
             <PopUpWrapper>
               <CloseButton onClick={closePopup}>x</CloseButton>
-              <img src={UserIBackground} alt="user img" />
-              <span>your name</span>
+              <img src={props.file} alt="user img" />
+              <span>{props.names}</span>
               <LogOutButton>log out</LogOutButton>
             </PopUpWrapper>
             <Overlay onClick={closePopup} />
@@ -59,7 +66,6 @@ function Header() {
     </MainWrapper>
   );
 }
-
 export default Header;
 
 const MainWrapper = styled.div`
@@ -93,7 +99,9 @@ const List = styled.li`
   color: #ffffff;
   font-size: 40px;
   font-weight: 700;
-  
+`;
+const Adress = styled.a`
+  cursor: pointer;
 `;
 const Line = styled.div`
   width: 2px;
@@ -120,6 +128,9 @@ const Img = styled.img`
     transform: scale(1.05);
     filter: brightness(0.8);
   }
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
 `;
 
 //PopUpWrapper
@@ -129,7 +140,7 @@ const Popup = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); 
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -5,30 +5,8 @@ import { Link, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-function Registration() {
+function Registration(props) {
   const navigate = useNavigate();
-  const [file, setFile] = useState(localStorage.getItem("uploadedFile") || "");
-  const [name, setName] = useState(localStorage.getItem("userName") || "");
-  const [isButtonClicked, setButtonClicked] = useState(false);
-
-  function getFile(event) {
-    const selectedFile = event.target.files[0];
-
-    if (selectedFile) {
-      localStorage.setItem("uploadedFile", URL.createObjectURL(selectedFile));
-      setFile(URL.createObjectURL(selectedFile));
-    }
-  }
-
-  function handleNameChange(event) {
-    const newName = event.target.value;
-    localStorage.setItem("userName", newName);
-    setName(newName);
-  }
-
-  const handleButtonClick = () => {
-    setButtonClicked(true);
-  };
 
   return (
     <RegistrationWrapper>
@@ -36,22 +14,26 @@ function Registration() {
         <h1>get started</h1>
         <AddSpan>add a photo</AddSpan>
         <ImgContainer>
-          <input type="file" onChange={getFile} />
-          <img src={file} alt="" />
+          <input type="file" onChange={props.getFile} />
+          {props.file ? (
+            <img src={props.file} alt="img" />
+          ) : (
+            <img src={AddImg} alt="img" />
+          )}
+          {/* <img src={props.file} alt="img" /> */}
         </ImgContainer>
         <NameSpan>fill in your name</NameSpan>
         <div>
           <Input
             type="text"
             placeholder="your name"
-            value={name}
-            onChange={handleNameChange}
+            value={props.names}
+            onChange={props.handleNameChange}
           />
         </div>
-        <span>{name}</span>
         <Button
           onClick={
-            (handleButtonClick,
+            (props.handleButtonClick,
             () => navigate("/Form", { state: { key: "value" } }))
           }
         >
@@ -90,15 +72,37 @@ const AddSpan = styled.span`
   font-size: 36px;
 `;
 const ImgContainer = styled.div`
+  position: relative;
   width: 200px;
   height: 200px;
   border-radius: 50%;
   background-color: #e6ebff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  margin: 35px 0 55px 0;
+
+  input {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #e6ebff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    opacity: 0;
+    z-index: 99;
+    position: absolute;
+  }
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
 `;
 const NameSpan = styled.span`
   color: #000;

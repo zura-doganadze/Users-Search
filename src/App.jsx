@@ -8,14 +8,53 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Api from "./Pages/Api";
 
 function App() {
+  const [file, setFile] = useState(localStorage.getItem("uploadedFile") || "");
+  const [names, setNames] = useState(localStorage.getItem("userName") || "");
+  const [isButtonClicked, setButtonClicked] = useState(false);
+
+  function getFile(event) {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      localStorage.setItem("uploadedFile", URL.createObjectURL(selectedFile));
+      setFile(URL.createObjectURL(selectedFile));
+    }
+  }
+
+  function handleNameChange(event) {
+    const newName = event.target.value;
+    localStorage.setItem("userName", newName);
+    setNames(newName);
+  }
+
+  const handleButtonClick = () => {
+    setButtonClicked(true);
+  };
+
   return (
     <>
       <Routes>
-        <Route path="/Header" element={<Header />} />
         <Route path="/" element={<Main />} />
-        <Route path="/Registration" element={<Registration />} />
-        <Route path="/Form" element={<Form />} />
-        <Route path="/Api" element={<Api />} />
+        <Route
+          path="/Registration"
+          element={
+            <Registration
+              getFile={getFile}
+              file={file}
+              names={names}
+              handleNameChange={handleNameChange}
+              handleButtonClick={handleButtonClick}
+            />
+          }
+        />
+        <Route
+          path="/Form"
+          element={<Form Header={<Header file={file} names={names} />} />}
+        />
+        <Route
+          path="/Api"
+          element={<Api Header={<Header file={file} names={names} />} />}
+        />
       </Routes>
     </>
   );

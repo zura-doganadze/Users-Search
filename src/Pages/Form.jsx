@@ -13,7 +13,7 @@ import FilterImg from "../Images/Form/filter-svg.svg";
 import search from "../Images/Form/search.svg";
 import UserIBackground from "../Images/Header/imgBackground.png";
 
-function Form() {
+function Form(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
@@ -44,7 +44,7 @@ function Form() {
     male: true,
     female: true,
   });
-
+  const [seeFilter, setSeeFilter] = useState(false);
   function toggleFilter(filterKey) {
     setFilters({
       ...filters,
@@ -65,18 +65,18 @@ function Form() {
     setUsers(filteredUsers);
   }, [filters]);
 
-  function HendlFilter() {
-    setFilters(!filters);
+  function TogleSeeFilter() {
+    setSeeFilter(!seeFilter);
   }
 
   const pages = [1, 2, 3, 4];
   return (
     <Wrapper>
-      <Header />
+      {props.Header}
       <FormCWrapper>
         <div>
           <Container>
-            {filters ? (
+            {seeFilter ? (
               <Filterssection>
                 <FilterDetailsC>
                   <ActiveCWrapper>
@@ -125,7 +125,7 @@ function Form() {
 
             <div>
               <FilterWrapper>
-                <FilterComponent onClick={HendlFilter}>
+                <FilterComponent onClick={TogleSeeFilter}>
                   <img src={FilterImg} alt="Filter Img" />
                   <FilterTitle>filter</FilterTitle>
                 </FilterComponent>
