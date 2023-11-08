@@ -41,7 +41,9 @@ function App() {
             <Registration
               getFile={getFile}
               file={file}
+              setFile={setFile}
               names={names}
+              setNames={setNames}
               handleNameChange={handleNameChange}
               handleButtonClick={handleButtonClick}
             />

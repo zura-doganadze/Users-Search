@@ -20,6 +20,16 @@ function Header(props) {
     setPopUp(false);
     console.log("asdaasdasd");
   };
+
+  //user log out
+  const handleLogOut = () => {
+    // Clear user data from local storage
+    localStorage.removeItem("uploadedFile");
+    localStorage.removeItem("userName");
+
+    // Navigate back to the registration page
+    navigate("/Registration");
+  };
   return (
     <MainWrapper>
       <Container>
@@ -57,7 +67,7 @@ function Header(props) {
               <CloseButton onClick={closePopup}>x</CloseButton>
               <img src={props.file} alt="user img" />
               <span>{props.names}</span>
-              <LogOutButton>log out</LogOutButton>
+              <LogOutButton onClick={handleLogOut}>log out</LogOutButton>
             </PopUpWrapper>
             <Overlay onClick={closePopup} />
           </Popup>

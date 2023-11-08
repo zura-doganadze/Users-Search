@@ -3,10 +3,19 @@ import styled from "styled-components";
 import AddImg from "../Images/Registration/add_a_photo_icon.svg";
 import { Link, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect  } from "react";
+
 
 function Registration(props) {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.removeItem("uploadedFile");
+    localStorage.removeItem("userName");
+
+    props.getFile({ target: { files: [] } }); 
+    props.handleNameChange({ target: { value: "" } }); 
+  }, []);
 
   return (
     <RegistrationWrapper>
