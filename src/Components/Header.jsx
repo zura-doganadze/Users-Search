@@ -29,6 +29,7 @@ function Header(props) {
 
     // Navigate back to the registration page
     navigate("/Registration");
+    navigate(0);
   };
   return (
     <MainWrapper>

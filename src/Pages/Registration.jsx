@@ -1,25 +1,42 @@
-import React from "react";
-import styled from "styled-components";
-import AddImg from "../Images/Registration/add_a_photo_icon.svg";
-import { Link, NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect  } from "react";
-
+import React from 'react';
+import styled from 'styled-components';
+import AddImg from '../Images/Registration/add_a_photo_icon.svg';
+import { Link, NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 
 function Registration(props) {
+  const { handleSubmit, register } = useForm();
+  const [err, setErr] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.removeItem("uploadedFile");
-    localStorage.removeItem("userName");
+    localStorage.removeItem('uploadedFile');
+    localStorage.removeItem('userName');
 
-    props.getFile({ target: { files: [] } }); 
-    props.handleNameChange({ target: { value: "" } }); 
+    props.getFile({ target: { files: [] } });
+    props.handleNameChange({ target: { value: '' } });
   }, []);
+
+  const onSubmit = (user) => {
+    if (!props.file) {
+      setErr(true);
+      return;
+    }
+
+    if (!user.username) {
+      setErr((cur) => !cur);
+      console.log('sheiyvane saxeli');
+      return;
+    }
+
+    navigate('/Form', { state: { key: 'value' } });
+  };
 
   return (
     <RegistrationWrapper>
-      <RegistrationContainer>
+      <RegistrationForm onSubmit={handleSubmit(onSubmit)}>
         <h1>get started</h1>
         <AddSpan>add a photo</AddSpan>
         <ImgContainer>
@@ -34,6 +51,7 @@ function Registration(props) {
         <NameSpan>fill in your name</NameSpan>
         <div>
           <Input
+            {...register('username')}
             type="text"
             placeholder="your name"
             value={props.names}
@@ -41,14 +59,15 @@ function Registration(props) {
           />
         </div>
         <Button
-          onClick={
-            (props.handleButtonClick,
-            () => navigate("/Form", { state: { key: "value" } }))
-          }
+        // onClick={
+        //   (props.handleButtonClick,
+        //   () => navigate('/Form', { state: { key: 'value' } }))
+        // }
         >
           sign in
         </Button>
-      </RegistrationContainer>
+        <span>{err && err && 'sheiyvane saxeli'}</span>
+      </RegistrationForm>
     </RegistrationWrapper>
   );
 }
@@ -60,7 +79,7 @@ const RegistrationWrapper = styled.div`
   justify-content: center;
   justify-items: center;
 `;
-const RegistrationContainer = styled.div`
+const RegistrationForm  = styled.div`
   max-width: 794px;
   width: 100%;
   border-radius: 25px;
