@@ -23,11 +23,9 @@ function Header(props) {
 
   //user log out
   const handleLogOut = () => {
-    // Clear user data from local storage
     localStorage.removeItem("uploadedFile");
     localStorage.removeItem("userName");
 
-    // Navigate back to the registration page
     navigate("/Registration");
     navigate(0);
   };

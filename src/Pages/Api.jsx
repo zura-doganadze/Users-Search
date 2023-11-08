@@ -87,13 +87,11 @@ function Api(props) {
     </Wrapper>
   );
 }
-
 export default Api;
 const Wrapper = styled.div`
   width: 100%;
   margin-bottom: 100px;
 `;
-
 const CardWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -123,12 +121,9 @@ const NamberWrapper = styled.div `
   display: flex;
   justify-content: center;
   width: 100%;
-
-`
+`;
 const NamberContainer = styled.div`
   display: flex;
-  /* max-width: 50px; */
-  /* overflow-x: auto; */
   column-gap: 7px;
   font-size: 20px;
   p {

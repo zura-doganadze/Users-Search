@@ -69,7 +69,7 @@ function Form(props) {
     setSeeFilter(!seeFilter);
   }
 
-  const pages = [1, 2, 3, 4];
+  const pages = [1, 2, 3];
   return (
     <Wrapper>
       {props.Header}
@@ -257,7 +257,7 @@ const FilterTopics = styled.span`
 const FilterTitle = styled.span`
   color: #000;
   font-size: 18px;
-  line-height: 132.99%; /* 23.938px */
+  line-height: 23.938px;  
   margin-left: 35px;
 `;
 const SearchComponent = styled.div`

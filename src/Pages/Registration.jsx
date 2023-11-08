@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import AddImg from '../Images/Registration/add_a_photo_icon.svg';
-import { Link, NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import React from "react";
+import styled from "styled-components";
+import AddImg from "../Images/Registration/add_a_photo_icon.svg";
+import { Link, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 function Registration(props) {
   const { handleSubmit, register } = useForm();
@@ -12,11 +12,11 @@ function Registration(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.removeItem('uploadedFile');
-    localStorage.removeItem('userName');
+    localStorage.removeItem("uploadedFile");
+    localStorage.removeItem("userName");
 
     props.getFile({ target: { files: [] } });
-    props.handleNameChange({ target: { value: '' } });
+    props.handleNameChange({ target: { value: "" } });
   }, []);
 
   const onSubmit = (user) => {
@@ -27,11 +27,11 @@ function Registration(props) {
 
     if (!user.username) {
       setErr((cur) => !cur);
-      console.log('sheiyvane saxeli');
+      console.log("sheiyvane saxeli");
       return;
     }
 
-    navigate('/Form', { state: { key: 'value' } });
+    navigate("/Form", { state: { key: "value" } });
   };
 
   return (
@@ -44,29 +44,21 @@ function Registration(props) {
           {props.file ? (
             <img src={props.file} alt="img" />
           ) : (
-            <img src={AddImg} alt="img" />
+            <AddImgt src={AddImg} alt="img" />
           )}
-          {/* <img src={props.file} alt="img" /> */}
         </ImgContainer>
         <NameSpan>fill in your name</NameSpan>
         <div>
           <Input
-            {...register('username')}
+            {...register("username")}
             type="text"
             placeholder="your name"
             value={props.names}
             onChange={props.handleNameChange}
           />
         </div>
-        <Button
-        // onClick={
-        //   (props.handleButtonClick,
-        //   () => navigate('/Form', { state: { key: 'value' } }))
-        // }
-        >
-          sign in
-        </Button>
-        <span>{err && err && 'sheiyvane saxeli'}</span>
+        <ErrorSpan>{err && err && "Enter all data"}</ErrorSpan>
+        <Button>sign in</Button>
       </RegistrationForm>
     </RegistrationWrapper>
   );
@@ -78,8 +70,9 @@ const RegistrationWrapper = styled.div`
   display: flex;
   justify-content: center;
   justify-items: center;
+  margin: 5% 0;
 `;
-const RegistrationForm  = styled.div`
+const RegistrationForm = styled.form`
   max-width: 794px;
   width: 100%;
   border-radius: 25px;
@@ -87,12 +80,19 @@ const RegistrationForm  = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: auto;
   h1 {
     color: #000;
     font-size: 64px;
     text-transform: capitalize;
-    margin-top: 62px;
+    margin: 52px 0px;
   }
+`;
+const ErrorSpan = styled.span`
+  color: red;
+  font-size: 18px;
+  margin-bottom: 22px;
+  font-weight: 700;
 `;
 
 const AddSpan = styled.span`
@@ -105,6 +105,7 @@ const ImgContainer = styled.div`
   height: 200px;
   border-radius: 50%;
   background-color: #e6ebff;
+  margin-top: 20px;
 
   input {
     width: 100%;
@@ -132,6 +133,9 @@ const ImgContainer = styled.div`
     border-radius: 50%;
   }
 `;
+const AddImgt = styled.img`
+  max-width: 50px;
+`;
 const NameSpan = styled.span`
   color: #000;
   font-size: 36px;
@@ -143,6 +147,7 @@ const Input = styled.input`
   padding: 29px;
   margin: 33px 0 37px 0;
   border: none;
+  border-radius: 12px;
 `;
 const Button = styled.button`
   color: #fff;
