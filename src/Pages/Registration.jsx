@@ -3,10 +3,32 @@ import styled from "styled-components";
 import AddImg from "../Images/Registration/add_a_photo_icon.svg";
 import { Link, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { useState } from "react";
 
 function Registration() {
   const navigate = useNavigate();
+  const [file, setFile] = useState(localStorage.getItem("uploadedFile") || "");
+  const [name, setName] = useState(localStorage.getItem("userName") || "");
+  const [isButtonClicked, setButtonClicked] = useState(false);
+
+  function getFile(event) {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      localStorage.setItem("uploadedFile", URL.createObjectURL(selectedFile));
+      setFile(URL.createObjectURL(selectedFile));
+    }
+  }
+
+  function handleNameChange(event) {
+    const newName = event.target.value;
+    localStorage.setItem("userName", newName);
+    setName(newName);
+  }
+
+  const handleButtonClick = () => {
+    setButtonClicked(true);
+  };
 
   return (
     <RegistrationWrapper>
@@ -14,14 +36,24 @@ function Registration() {
         <h1>get started</h1>
         <AddSpan>add a photo</AddSpan>
         <ImgContainer>
-          <img src={AddImg} alt="" />
+          <input type="file" onChange={getFile} />
+          <img src={file} alt="" />
         </ImgContainer>
         <NameSpan>fill in your name</NameSpan>
         <div>
-          <Input type="text" placeholder="your name" />
+          <Input
+            type="text"
+            placeholder="your name"
+            value={name}
+            onChange={handleNameChange}
+          />
         </div>
+        <span>{name}</span>
         <Button
-          onClick={() => navigate("/Form", { state: { key: "value" } })}
+          onClick={
+            (handleButtonClick,
+            () => navigate("/Form", { state: { key: "value" } }))
+          }
         >
           sign in
         </Button>

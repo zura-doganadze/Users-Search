@@ -11,11 +11,11 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="/Header" element={<Header />} />
         <Route path="/" element={<Main />} />
         <Route path="/Registration" element={<Registration />} />
         <Route path="/Form" element={<Form />} />
         <Route path="/Api" element={<Api />} />
-
       </Routes>
     </>
   );

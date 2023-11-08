@@ -16,6 +16,7 @@ const Api = () => {
     }
   }, []);
   console.log(location.state);
+  console.log(navigate);
 
   async function fetchAdvice() {
     try {

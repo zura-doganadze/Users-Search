@@ -16,13 +16,8 @@ import UserIBackground from "../Images/Header/imgBackground.png";
 function Form() {
   const location = useLocation();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (location.state == null) {
-      navigate("/Registration");
-    }
-  }, []);
+  const [page, setPage] = useState(1);
 
-  console.log(location.state);
   const Titlesdata = [
     "სტუდენტის სახელი და გვარი",
     "სტატუსი",
@@ -34,12 +29,44 @@ function Form() {
     "დაბადების თარიღი",
     "მაილი",
   ];
+
+  useEffect(() => {
+    if (location.state == null) {
+      navigate("/Registration");
+    }
+  }, []);
+
   const [users, setUsers] = useState(userData);
-  const [filter, setFilter] = useState(false);
-  const [page, setPage] = useState(1);
+
+  const [filters, setFilters] = useState({
+    active: true,
+    inactive: true,
+    male: true,
+    female: true,
+  });
+
+  function toggleFilter(filterKey) {
+    setFilters({
+      ...filters,
+      [filterKey]: !filters[filterKey],
+    });
+  }
+
+  useEffect(() => {
+    const filteredUsers = userData.filter((user) => {
+      return (
+        (((filters.active && user.active) ||
+          (filters.inactive && !user.active)) &&
+          filters.male &&
+          user.gender === "male") ||
+        (filters.female && user.gender === "female")
+      );
+    });
+    setUsers(filteredUsers);
+  }, [filters]);
 
   function HendlFilter() {
-    setFilter(!filter);
+    setFilters(!filters);
   }
 
   const pages = [1, 2, 3, 4];
@@ -49,28 +76,44 @@ function Form() {
       <FormCWrapper>
         <div>
           <Container>
-            {filter ? (
+            {filters ? (
               <Filterssection>
                 <FilterDetailsC>
                   <ActiveCWrapper>
                     <h3>სტუდენტის სტატუსი</h3>
                     <FilterTopics>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={filters.active}
+                        onChange={() => toggleFilter("active")}
+                      />
                       <span>active</span>
                     </FilterTopics>
                     <FilterTopics>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={filters.inactive}
+                        onChange={() => toggleFilter("inactive")}
+                      />
                       <span>inactive</span>
                     </FilterTopics>
                   </ActiveCWrapper>
                   <ActiveCWrapper>
                     <h3>სქესი</h3>
                     <FilterTopics>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={filters.male}
+                        onChange={() => toggleFilter("male")}
+                      />{" "}
                       <span>male</span>
                     </FilterTopics>
                     <FilterTopics>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={filters.female}
+                        onChange={() => toggleFilter("female")}
+                      />{" "}
                       <span>female</span>
                     </FilterTopics>
                   </ActiveCWrapper>
